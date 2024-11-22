@@ -3,6 +3,11 @@ from openai import OpenAI
 
 # Show title and description.
 st.title("💬 Chatbot")
+
+with st.sidebar:
+    model_checkbox = st.selectbox("Select a model", ["gpt-4o", "gpt-4o-mini", "o1-preview", "o1-mini", "gpt-4-turbo", "gpt-4", "gpt-3.5-turbo"])
+    st.write(f"Selected model: {model_checkbox}")
+
 st.write(
     "This is a simple chatbot that uses OpenAI's GPT-3.5 model to generate responses. "
     "To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys). "
@@ -41,7 +46,7 @@ else:
 
         # Generate a response using the OpenAI API.
         stream = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model=model_checkbox,
             messages=[
                 {"role": m["role"], "content": m["content"]}
                 for m in st.session_state.messages
